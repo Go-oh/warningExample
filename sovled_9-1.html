@@ -1,5 +1,6 @@
 <!-- https://github.com/gilbutITbook/006960/blob/master/ch09/9-1.html -->
 <!-- 공이 안생긴다 코드는 거의 같은거같은데. -->
+<!-- 해결 : 53 line Math.Pi였음. Math.PI인데. -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,11 +18,11 @@
                 left : 0,
                 right : canvas.width,
                 top : 0,
-                bottom : canvas.height,
+                bottom : canvas.height
             };
             var balls = [];
             for(var i=0; i<NBALL; i++){
-                balls[i] = new Ball(wall.right/2, wall.height/2, R);
+                balls[i] = new Ball(wall.right/2, wall.bottom/2, R);
                 balls[i].setColorAsRandom(50, 255).setVelocityAsRandom(2, 7);
             }
             
@@ -45,20 +46,20 @@
             this.vx = vx;
             this.vy = vy;
             this.color = color;
-        };
+        }
         
         Ball.prototype = {
-            setVelocityAsRandom : function(vmin, vmax){
+            setVelocityAsRandom: function(vmin, vmax){
                 var v = vmin + Math.random() * (vmax - vmin);
-                var t = 2*Math.Pi*Math.random();
+                var t = 2*Math.PI*Math.random();                //Math.PI
                 this.vx = v*Math.cos(t);
                 this.vy = v*Math.sin(t);
                 return this;
             },
             setColorAsRandom : function(lmin, lmax) {
-                var R = lmin + Math.random() * (lmin - lmax);
-                var G = lmin + Math.random() * (lmin - lmax);
-                var B = lmin + Math.random() * (lmin - lmax);
+                var R = Math.floor(lmin+Math.random()*(lmax-lmin));
+				var G = Math.floor(lmin+Math.random()*(lmax-lmin));
+				var B = Math.floor(lmin+Math.random()*(lmax-lmin));
                 this.color = 'rgb('+R+', '+G+', '+B+')';
                 return this;
             },
