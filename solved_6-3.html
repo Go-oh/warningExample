@@ -1,0 +1,60 @@
+<!-- 시간 새로고침, clear 추가함 -->
+
+<head>
+    <meta charset="utf-8">
+    <script>
+
+
+        window.onload = function(){
+            var startButton = document.getElementById("start")
+            var endButton = document.getElementById("end")
+            var display = document.getElementById("display")
+            var clearButton = document.getElementById("clear")
+            var startTime, timer;
+            startButton.onclick = start;
+
+            //시간 새로고침 반영된 부분
+            KST.innerHTML = new Date();
+            setInterval(function(){KST.innerHTML = new Date()}, 1000);
+            //
+
+
+            function start(){
+                startButton.onclick = null
+                endButton.onclick = end;
+                clearButton.onclick = clear;
+                startTime = new Date();
+
+                timeGap = function(){
+                    var now = new Date();                    
+                    display.innerHTML = ((now - startTime)/1000).toFixed(2);
+                };
+
+                timer = setInterval(timeGap, 10)
+            }
+
+            function end(){
+                console.log("end")
+                // endButton = null;
+                clearInterval(timer);
+                startButton.onclick = start;
+            }
+
+            function clear(){
+                // console.log("cls")
+                // clearButton.onclick = function(){    //굳이 이거 덧붙혀서 0.00 두번만에 나오게됨;
+                    display.innerHTML = "0.00";
+                // };
+            }
+        };
+    
+    </script>
+
+</head>
+<body>
+    <p id="KST"></p>
+    <p id="display">0.00</p>
+    <input id="start" type="button" value="start">
+    <input id="end" type="button" value="end">
+    <input id="clear" type="button" value="clear">
+</body>
